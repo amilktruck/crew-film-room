@@ -62,3 +62,31 @@ Hosted on Cloudflare Pages (project `crew-film-room`), connected directly to
 this repo's `main` branch — every merge to `main` triggers an automatic
 rebuild and deploy. Framework preset: **None**. Build command: **(none)**.
 Build output directory: **/** (repo root).
+
+## Why there's a `worker/` folder
+
+`film.crewfilmroom.com` doesn't serve the `crew-film` R2 bucket directly.
+Hudl's exports embed their video/thumbnail paths as `..//z/<file>` — a
+double slash baked into their exporter, not a mistake in any upload. Normal
+web servers collapse `//` into `/`; R2 treats the URL path as an exact
+object key and does not, so every asset load 404s under R2's plain public
+bucket serving. Fixing it with a Transform Rule needs `regex_replace`, which
+is gated to Cloudflare's Business plan — so instead, `worker/` is a small
+Worker that fronts the bucket, normalizes the path, and streams the object
+back (including range requests, for video scrubbing). It costs nothing on
+Cloudflare's free Workers tier.
+
+To deploy or update it:
+
+```bash
+cd worker
+npx wrangler login   # one-time, opens a browser to authorize
+npx wrangler deploy
+```
+
+Then, one-time only: in the Cloudflare dashboard, remove the R2 bucket's own
+custom domain binding for `film.crewfilmroom.com` (Settings → Custom
+Domains), and instead add that same hostname as a **Custom Domain** on the
+`crew-film-proxy` Worker (Worker → Settings → Domains & Routes). After that,
+`wrangler deploy` is all that's needed for future code changes — no need to
+touch the domain binding again.
