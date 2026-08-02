@@ -5,6 +5,14 @@ the film itself lives in Cloudflare R2 (bucket `crew-film`, served at
 `film.crewfilmroom.com`); this repo is just the home page and the searchable
 clip index that link out to it.
 
+## Design
+
+Uses the "Chalk Line" design system from `~/code/whitehat/DESIGN.md` — same
+audience (NFHS football officials), same visual language: light paper
+surface, cobalt accent, Archivo/Geist/Geist Mono type, hairline rules
+instead of cards, zero border-radius, no shadows or gradients. Check that
+file before making visual changes here so the two stay in sync.
+
 ## Structure
 
 ```
@@ -12,7 +20,7 @@ index.html          Home page — links out to each section (Clips, and future o
 clips/index.html     Search / browse page for published game film
 assets/site.css      Shared styles
 assets/home.js        Renders the home page's section cards from a small array
-assets/clips.js       Fetches data/games.json, renders cards, handles search + level filter
+assets/clips.js       Fetches data/games.json, renders cards, handles search + grid/list view
 data/games.json        The real data — one entry per published game. Starts empty.
 data/games.example.json  Reference copy of the schema — not loaded by the site.
 ```
@@ -27,9 +35,10 @@ data/games.example.json  Reference copy of the schema — not loaded by the site
    - `slug` — matches the folder name you uploaded to R2
    - `title` — the matchup or reel title, e.g. `"Eastside vs. Grant"`
    - `date` — `YYYY-MM-DD`
-   - `level` — `"High School"`, `"Varsity"`, `"JV"`, or `"Playoff"` (drives
-     the filter chips — add a new chip in `clips/index.html` if you introduce
-     another level)
+   - `level` — currently always `"High School"`. There's no level filter in
+     the UI right now (everything is High School), so this field isn't
+     rendered or filterable — it's kept in the data for when other levels
+     get added back
    - `crew` — e.g. `"Crew 3"`; optional, omit the field entirely to hide it
      (used for multi-game compilations that aren't tied to one crew)
    - `tags` — short labels for what the film focuses on; optional, omit or
@@ -37,7 +46,8 @@ data/games.example.json  Reference copy of the schema — not loaded by the site
    - `clipCount` — how many clips are in the export (shown on the card)
    - `thumbnail` — optional; a thumbnail URL from the uploaded export's `z/`
      folder. Omit it and a placeholder renders instead.
-   - `filmUrl` — the full R2 URL to that game's `index.html`
+   - `filmUrl` — the full R2 URL to that game's `index.html`. Cards link
+     here with `target="_blank"`, so clicking a clip opens it in a new tab.
 3. Commit and push to `main`. Cloudflare Pages redeploys automatically (see
    below) and the game appears on `/clips/`.
 

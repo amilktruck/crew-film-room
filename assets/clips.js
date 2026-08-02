@@ -1,9 +1,10 @@
-const playSvg = `<svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.92)"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.35)"/><path d="M9.5 7.5v9l7-4.5z"/></svg>`;
+const playSvg = `<svg viewBox="0 0 24 24" fill="rgba(20,22,26,0.85)"><path d="M9.5 7.5v9l7-4.5z"/></svg>`;
 
 const grid = document.getElementById("grid");
 const emptyState = document.getElementById("emptyState");
 const searchInput = document.getElementById("search");
-const levelChips = document.getElementById("levelChips");
+const viewGridBtn = document.getElementById("viewGrid");
+const viewListBtn = document.getElementById("viewList");
 
 let games = [];
 
@@ -19,16 +20,13 @@ function cardHtml(g) {
     ? `<div class="tag-row">${g.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`
     : "";
   return `
-    <a class="card" href="${g.filmUrl}">
+    <a class="card" href="${g.filmUrl}" target="_blank" rel="noopener noreferrer">
       <div class="thumb">
         ${thumb}
         ${g.clipCount ? `<div class="clipcount">${g.clipCount} clips</div>` : ""}
       </div>
       <div class="card-body">
-        <div class="card-top">
-          <div class="matchup">${g.title}</div>
-          <div class="level-pill">${g.level}</div>
-        </div>
+        <div class="matchup">${g.title}</div>
         <div class="card-meta">${metaHtml}</div>
         ${tagsHtml}
       </div>
@@ -38,36 +36,36 @@ function cardHtml(g) {
 
 function render(list) {
   if (list.length === 0) {
-    grid.style.display = "none";
+    grid.classList.add("is-hidden");
     emptyState.style.display = "block";
     return;
   }
-  grid.style.display = "grid";
+  grid.classList.remove("is-hidden");
   emptyState.style.display = "none";
   grid.innerHTML = list.map(cardHtml).join("");
 }
 
 function applyFilters() {
   const q = searchInput.value.toLowerCase();
-  const level = levelChips.querySelector(".chip.active").dataset.level;
   render(
     games.filter(
       (g) =>
-        (level === "all" || g.level === level) &&
-        (g.title.toLowerCase().includes(q) ||
-          (g.crew || "").toLowerCase().includes(q) ||
-          g.date.toLowerCase().includes(q))
+        g.title.toLowerCase().includes(q) ||
+        (g.crew || "").toLowerCase().includes(q) ||
+        g.date.toLowerCase().includes(q)
     )
   );
 }
 
+function setView(view) {
+  grid.classList.toggle("is-list", view === "list");
+  viewGridBtn.setAttribute("aria-pressed", String(view === "grid"));
+  viewListBtn.setAttribute("aria-pressed", String(view === "list"));
+}
+
 searchInput.addEventListener("input", applyFilters);
-levelChips.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("chip")) return;
-  [...levelChips.querySelectorAll(".chip")].forEach((c) => c.classList.remove("active"));
-  e.target.classList.add("active");
-  applyFilters();
-});
+viewGridBtn.addEventListener("click", () => setView("grid"));
+viewListBtn.addEventListener("click", () => setView("list"));
 
 fetch("/data/games.json")
   .then((r) => r.json())
