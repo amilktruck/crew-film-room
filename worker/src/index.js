@@ -45,11 +45,17 @@ export default {
     headers.set("etag", object.httpEtag);
     headers.set("accept-ranges", "bytes");
 
+    // object.range describes the extent actually returned and is present
+    // even for a full, non-ranged fetch (e.g. {offset: 0, length: size}) —
+    // it is not a signal that the client asked for a range. Only respond
+    // 206 when the client's request itself carried a Range header, and
+    // compute Content-Range from offset/length (R2Range has no "end").
     let status = 200;
-    if (object.range) {
+    if (options.range && object.range) {
       status = 206;
-      const end = object.range.end ?? object.size - 1;
-      headers.set("content-range", `bytes ${object.range.offset}-${end}/${object.size}`);
+      const offset = object.range.offset ?? 0;
+      const length = object.range.length ?? object.size - offset;
+      headers.set("content-range", `bytes ${offset}-${offset + length - 1}/${object.size}`);
     }
 
     if (request.method === "HEAD") {
