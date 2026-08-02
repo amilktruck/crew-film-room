@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clips — Crew Film Room</title>
+  <meta name="description" content="Search reviewed game film for the crew." />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <span class="mark"></span>
+        <span>
+          <span class="name">CREW <span>FILM</span> ROOM</span><br />
+          <span class="tagline">Post-game mechanics &amp; judgment review</span>
+        </span>
+      </a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/clips/" aria-current="page">Clips</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="clips-main">
+    <div class="wrap">
+      <div class="page-head">
+        <h1>Clips</h1>
+        <p>Reviewed game film, with the on-tape comments intact. Opens the original film file &mdash; controls, drawings, and all.</p>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" id="search" placeholder="Search by team, crew, or date…" />
+        <div class="chip-row" id="levelChips">
+          <button class="chip active" data-level="all">All levels</button>
+          <button class="chip" data-level="Varsity">Varsity</button>
+          <button class="chip" data-level="JV">JV</button>
+          <button class="chip" data-level="Playoff">Playoff</button>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+      <div id="emptyState" class="empty-state" style="display:none;">
+        <p>No clips published yet</p>
+        <p>Check back after the next film session &mdash; new games are added here as soon as they're uploaded.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Crew Film Room</span>
+      <span>Unlisted &mdash; not indexed for public search</span>
+    </div>
+  </footer>
+
+  <script src="/assets/clips.js"></script>
+</body>
+</html>
