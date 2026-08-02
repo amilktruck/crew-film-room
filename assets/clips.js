@@ -11,6 +11,13 @@ function cardHtml(g) {
   const thumb = g.thumbnail
     ? `<img src="${g.thumbnail}" alt="" loading="lazy" />`
     : `<div class="play">${playSvg}</div>`;
+  const metaParts = [g.date, g.crew].filter(Boolean);
+  const metaHtml = metaParts
+    .map((p) => `<span>${p}</span>`)
+    .join('<span class="dot">&middot;</span>');
+  const tagsHtml = g.tags && g.tags.length
+    ? `<div class="tag-row">${g.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`
+    : "";
   return `
     <a class="card" href="${g.filmUrl}">
       <div class="thumb">
@@ -22,8 +29,8 @@ function cardHtml(g) {
           <div class="matchup">${g.title}</div>
           <div class="level-pill">${g.level}</div>
         </div>
-        <div class="card-meta"><span>${g.date}</span><span class="dot">&middot;</span><span>${g.crew}</span></div>
-        <div class="tag-row">${(g.tags || []).map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+        <div class="card-meta">${metaHtml}</div>
+        ${tagsHtml}
       </div>
     </a>
   `;
@@ -48,7 +55,7 @@ function applyFilters() {
       (g) =>
         (level === "all" || g.level === level) &&
         (g.title.toLowerCase().includes(q) ||
-          g.crew.toLowerCase().includes(q) ||
+          (g.crew || "").toLowerCase().includes(q) ||
           g.date.toLowerCase().includes(q))
     )
   );

@@ -25,11 +25,15 @@ data/games.example.json  Reference copy of the schema — not loaded by the site
 2. Add one entry to `data/games.json`, following the shape in
    `data/games.example.json`:
    - `slug` — matches the folder name you uploaded to R2
-   - `title` — the matchup, e.g. `"Eastside vs. Grant"`
+   - `title` — the matchup or reel title, e.g. `"Eastside vs. Grant"`
    - `date` — `YYYY-MM-DD`
-   - `level` — `"Varsity"`, `"JV"`, or `"Playoff"` (drives the filter chips)
-   - `crew` — e.g. `"Crew 3"`
-   - `tags` — short labels for what the film focuses on
+   - `level` — `"High School"`, `"Varsity"`, `"JV"`, or `"Playoff"` (drives
+     the filter chips — add a new chip in `clips/index.html` if you introduce
+     another level)
+   - `crew` — e.g. `"Crew 3"`; optional, omit the field entirely to hide it
+     (used for multi-game compilations that aren't tied to one crew)
+   - `tags` — short labels for what the film focuses on; optional, omit or
+     use `[]` to hide the tag row
    - `clipCount` — how many clips are in the export (shown on the card)
    - `thumbnail` — optional; a thumbnail URL from the uploaded export's `z/`
      folder. Omit it and a placeholder renders instead.
