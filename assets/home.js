@@ -23,6 +23,7 @@ grid.innerHTML = SECTIONS.map((s) => {
   const pill = s.status === "live"
     ? `<span class="status-pill live">Open</span>`
     : `<span class="status-pill soon">Coming soon</span>`;
+  const arrow = s.status === "live" ? `<span class="row-arrow" aria-hidden="true">&rarr;</span>` : "";
   return `
     <${tag} class="section-card${s.status === "soon" ? " is-soon" : ""}"${hrefAttr}>
       <div class="card-top">
@@ -30,6 +31,7 @@ grid.innerHTML = SECTIONS.map((s) => {
         ${pill}
       </div>
       <p>${s.description}</p>
+      ${arrow}
     </${tag}>
   `;
 }).join("");

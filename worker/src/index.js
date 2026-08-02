@@ -6,6 +6,22 @@
 // (range requests included, for video scrubbing).
 export default {
   async fetch(request, env) {
+    // The Pages site (crewfilmroom.com) embeds thumbnails from this bucket's
+    // hostname (film.crewfilmroom.com) — a different origin. Without CORS
+    // headers, browsers intermittently apply Opaque Response Blocking to
+    // those cross-origin <img> loads even though the response itself is
+    // fine, causing thumbnails to fail unpredictably. Bucket contents are
+    // public read-only film, so an open CORS policy is safe.
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "GET, HEAD",
+          "access-control-max-age": "86400",
+        },
+      });
+    }
+
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", { status: 405 });
     }
@@ -44,6 +60,7 @@ export default {
     object.writeHttpMetadata(headers);
     headers.set("etag", object.httpEtag);
     headers.set("accept-ranges", "bytes");
+    headers.set("access-control-allow-origin", "*");
 
     // object.range describes the extent actually returned and is present
     // even for a full, non-ranged fetch (e.g. {offset: 0, length: size}) —
