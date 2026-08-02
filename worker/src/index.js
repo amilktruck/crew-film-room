@@ -18,10 +18,23 @@ export default {
       return new Response("Not found", { status: 404 });
     }
 
-    const object = await env.FILM_BUCKET.get(key, {
-      range: request.headers,
-      onlyIf: request.headers,
-    });
+    // Only forward range/conditional options when the client actually sent
+    // them — passing the whole Headers object through unconditionally makes
+    // R2 return an empty 206 even for plain requests with no Range header.
+    const options = {};
+    if (request.headers.has("range")) {
+      options.range = request.headers;
+    }
+    if (
+      request.headers.has("if-none-match") ||
+      request.headers.has("if-modified-since") ||
+      request.headers.has("if-match") ||
+      request.headers.has("if-unmodified-since")
+    ) {
+      options.onlyIf = request.headers;
+    }
+
+    const object = await env.FILM_BUCKET.get(key, options);
 
     if (!object) {
       return new Response("Not found", { status: 404 });
