@@ -5,8 +5,11 @@ const emptyState = document.getElementById("emptyState");
 const searchInput = document.getElementById("search");
 const viewGridBtn = document.getElementById("viewGrid");
 const viewListBtn = document.getElementById("viewList");
+const sortNewestBtn = document.getElementById("sortNewest");
+const sortOldestBtn = document.getElementById("sortOldest");
 
 let games = [];
+let sortOrder = "newest";
 
 function cardHtml(g) {
   const thumb = g.thumbnail
@@ -47,14 +50,17 @@ function render(list) {
 
 function applyFilters() {
   const q = searchInput.value.toLowerCase();
-  render(
-    games.filter(
+  const list = games
+    .filter(
       (g) =>
         g.title.toLowerCase().includes(q) ||
         (g.crew || "").toLowerCase().includes(q) ||
         g.date.toLowerCase().includes(q)
     )
-  );
+    .sort((a, b) =>
+      sortOrder === "newest" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date)
+    );
+  render(list);
 }
 
 function setView(view) {
@@ -63,15 +69,24 @@ function setView(view) {
   viewListBtn.setAttribute("aria-pressed", String(view === "list"));
 }
 
+function setSort(order) {
+  sortOrder = order;
+  sortNewestBtn.setAttribute("aria-pressed", String(order === "newest"));
+  sortOldestBtn.setAttribute("aria-pressed", String(order === "oldest"));
+  applyFilters();
+}
+
 searchInput.addEventListener("input", applyFilters);
 viewGridBtn.addEventListener("click", () => setView("grid"));
 viewListBtn.addEventListener("click", () => setView("list"));
+sortNewestBtn.addEventListener("click", () => setSort("newest"));
+sortOldestBtn.addEventListener("click", () => setSort("oldest"));
 
 fetch("/data/games.json")
   .then((r) => r.json())
   .then((data) => {
     games = data;
-    render(games);
+    applyFilters();
   })
   .catch(() => {
     render([]);

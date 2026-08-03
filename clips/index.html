@@ -43,11 +43,18 @@
           <label for="search">Search</label>
           <input class="search" id="search" placeholder="Search by team, crew, or date…" />
         </div>
-        <div class="view-toggle" role="group" aria-label="Layout">
+        <div class="toggle-group" role="group" aria-label="Sort order">
+          <span class="mono-label">Sort</span>
+          <div>
+            <button class="toggle-btn" id="sortNewest" type="button" aria-pressed="true">Newest</button>
+            <button class="toggle-btn" id="sortOldest" type="button" aria-pressed="false">Oldest</button>
+          </div>
+        </div>
+        <div class="toggle-group" role="group" aria-label="Layout">
           <span class="mono-label">View</span>
           <div>
-            <button class="view-btn" id="viewGrid" type="button" aria-pressed="false">Grid</button>
-            <button class="view-btn" id="viewList" type="button" aria-pressed="true">List</button>
+            <button class="toggle-btn" id="viewGrid" type="button" aria-pressed="false">Grid</button>
+            <button class="toggle-btn" id="viewList" type="button" aria-pressed="true">List</button>
           </div>
         </div>
       </div>

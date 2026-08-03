@@ -192,19 +192,19 @@ main { flex: 1; }
 .search:focus-visible { border-color: var(--color-accent); outline: none; }
 .search::placeholder { color: var(--color-text-muted); }
 
-.view-toggle { display: flex; gap: 2px; }
-.view-toggle span.mono-label {
+.toggle-group { display: flex; gap: 2px; }
+.toggle-group span.mono-label {
   display: block; font-size: 10.5px; font-weight: 700; color: var(--color-text-muted); margin-bottom: 6px;
 }
-.view-btn {
+.toggle-btn {
   font-family: "Geist Mono", monospace;
   font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   padding: 9px 14px; border: 1px solid var(--color-border); border-radius: 2px;
   background: var(--color-surface); color: var(--color-text-secondary); cursor: pointer;
 }
-.view-btn + .view-btn { border-left: none; }
-.view-btn[aria-pressed="true"] { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
-.view-btn:hover:not([aria-pressed="true"]) { background: var(--color-surface-hover); }
+.toggle-btn + .toggle-btn { border-left: none; }
+.toggle-btn[aria-pressed="true"] { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
+.toggle-btn:hover:not([aria-pressed="true"]) { background: var(--color-surface-hover); }
 
 /* Grid view */
 .grid {
