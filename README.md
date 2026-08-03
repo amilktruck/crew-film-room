@@ -9,7 +9,7 @@ home page and the searchable indexes that link out to both.
 ## Design
 
 Uses the "Chalk Line" design system from `~/code/whitehat/DESIGN.md` — same
-audience (NFHS football officials), same visual language: light paper
+audience (high school football officials), same visual language: light paper
 surface, cobalt accent, Archivo/Geist/Geist Mono type, hairline rules
 instead of cards, zero border-radius, no shadows or gradients. Check that
 file before making visual changes here so the two stay in sync.
