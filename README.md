@@ -68,10 +68,17 @@ data/documents.example.json  Reference copy of the documents schema — not load
    - `fileType` — e.g. `"PPTX"`, shown as a badge on the card
    - `fileSize` — e.g. `"2.0 MB"`; optional, shown next to the date
    - `tags` — optional, same as the games schema
+   - `thumbnail` — optional; a preview image URL. Omit it and a generic
+     document icon renders instead. To generate one from a PDF's first page:
+     `qlmanage -t -s 800 -o <outdir> <file>.pdf` (macOS Quick Look, no extra
+     tools needed), then resize/convert with
+     `sips -s format jpeg -Z 640 in.png --out out.jpg` and upload it to the
+     bucket alongside the document.
    - `docUrl` — the full `docs.crewfilmroom.com` URL. Cards link here with
-     `target="_blank"`, so clicking a document opens it in a new tab. Note
-     PPTX files will download rather than preview inline — browsers don't
-     render PowerPoint natively the way they do PDFs.
+     `target="_blank"`, so clicking a document opens it in a new tab. PDFs
+     preview inline in most browsers; PPTX/DOCX will download instead since
+     browsers don't render Office formats natively — converting to PDF
+     first (as done for the two entries here) is recommended.
 3. Commit and push to `main`.
 
 ## Adding a new section (e.g. beyond Clips/Documents)
