@@ -10,8 +10,8 @@ const SECTIONS = [
   {
     title: "Documents",
     description: "Mechanics manuals, points of emphasis, and other crew references.",
-    href: null,
-    status: "soon",
+    href: "/documents/",
+    status: "live",
   },
 ];
 

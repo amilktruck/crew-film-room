@@ -2,8 +2,9 @@
 
 Static site for the crew's post-game film review. No backend, no database —
 the film itself lives in Cloudflare R2 (bucket `crew-film`, served at
-`film.crewfilmroom.com`); this repo is just the home page and the searchable
-clip index that link out to it.
+`film.crewfilmroom.com`), and reference documents live in a second bucket
+(`crew-documents`, served at `docs.crewfilmroom.com`); this repo is just the
+home page and the searchable indexes that link out to both.
 
 ## Design
 
@@ -16,13 +17,17 @@ file before making visual changes here so the two stay in sync.
 ## Structure
 
 ```
-index.html          Home page — links out to each section (Clips, and future ones)
+index.html          Home page — links out to each section (Clips, Documents)
 clips/index.html     Search / browse page for published game film
+documents/index.html   Search / browse page for reference documents
 assets/site.css      Shared styles
 assets/home.js        Renders the home page's section cards from a small array
 assets/clips.js       Fetches data/games.json, renders cards, handles search + grid/list view
-data/games.json        The real data — one entry per published game. Starts empty.
-data/games.example.json  Reference copy of the schema — not loaded by the site.
+assets/documents.js    Same pattern as clips.js, fetches data/documents.json
+data/games.json        Published games. Starts empty.
+data/games.example.json  Reference copy of the games schema — not loaded by the site.
+data/documents.json      Published documents. Starts empty.
+data/documents.example.json  Reference copy of the documents schema — not loaded by the site.
 ```
 
 ## Adding a new game
@@ -51,7 +56,25 @@ data/games.example.json  Reference copy of the schema — not loaded by the site
 3. Commit and push to `main`. Cloudflare Pages redeploys automatically (see
    below) and the game appears on `/clips/`.
 
-## Adding a new section (e.g. Documents)
+## Adding a new document
+
+1. Upload the file as-is to the `crew-documents` R2 bucket (flat — no
+   folder structure needed, unlike the Hudl exports).
+2. Add one entry to `data/documents.json`, following the shape in
+   `data/documents.example.json`:
+   - `slug` — a short kebab-case id, doesn't need to match the R2 key
+   - `title` — display name, e.g. `"Deep 3 Base Mechanics"`
+   - `date` — `YYYY-MM-DD`
+   - `fileType` — e.g. `"PPTX"`, shown as a badge on the card
+   - `fileSize` — e.g. `"2.0 MB"`; optional, shown next to the date
+   - `tags` — optional, same as the games schema
+   - `docUrl` — the full `docs.crewfilmroom.com` URL. Cards link here with
+     `target="_blank"`, so clicking a document opens it in a new tab. Note
+     PPTX files will download rather than preview inline — browsers don't
+     render PowerPoint natively the way they do PDFs.
+3. Commit and push to `main`.
+
+## Adding a new section (e.g. beyond Clips/Documents)
 
 Add an entry to the `SECTIONS` array in `assets/home.js`. Set `status` to
 `"live"` with an `href` once the section has a real page, or `"soon"` with
@@ -72,6 +95,15 @@ Hosted on Cloudflare Pages (project `crew-film-room`), connected directly to
 this repo's `main` branch — every merge to `main` triggers an automatic
 rebuild and deploy. Framework preset: **None**. Build command: **(none)**.
 Build output directory: **/** (repo root).
+
+## Why `crew-documents` doesn't need a Worker
+
+Documents are flat, individually-uploaded files with no relative-path
+references between them, and cards link to them with a normal `target="_blank"`
+navigation rather than embedding them cross-origin on another page — so
+neither the double-slash bug nor the CORS issue that affect `crew-film`
+apply here. `docs.crewfilmroom.com` uses R2's plain public custom domain
+directly, no Worker in front.
 
 ## Why there's a `worker/` folder
 

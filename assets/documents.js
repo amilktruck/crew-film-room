@@ -1,4 +1,4 @@
-const playSvg = `<svg viewBox="0 0 24 24" fill="rgba(20,22,26,0.85)"><path d="M9.5 7.5v9l7-4.5z"/></svg>`;
+const docSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="rgba(20,22,26,0.7)" stroke-width="1.6"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>`;
 
 const grid = document.getElementById("grid");
 const emptyState = document.getElementById("emptyState");
@@ -6,27 +6,27 @@ const searchInput = document.getElementById("search");
 const viewGridBtn = document.getElementById("viewGrid");
 const viewListBtn = document.getElementById("viewList");
 
-let games = [];
+let docs = [];
 
-function cardHtml(g) {
-  const thumb = g.thumbnail
-    ? `<img src="${g.thumbnail}" alt="" loading="lazy" />`
-    : `<div class="play">${playSvg}</div>`;
-  const metaParts = [g.date, g.crew].filter(Boolean);
+function cardHtml(d) {
+  const thumb = d.thumbnail
+    ? `<img src="${d.thumbnail}" alt="" loading="lazy" />`
+    : `<div class="play">${docSvg}</div>`;
+  const metaParts = [d.date, d.fileSize].filter(Boolean);
   const metaHtml = metaParts
     .map((p) => `<span>${p}</span>`)
     .join('<span class="dot">&middot;</span>');
-  const tagsHtml = g.tags && g.tags.length
-    ? `<div class="tag-row">${g.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`
+  const tagsHtml = d.tags && d.tags.length
+    ? `<div class="tag-row">${d.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>`
     : "";
   return `
-    <a class="card" href="${g.filmUrl}" target="_blank" rel="noopener noreferrer">
+    <a class="card" href="${d.docUrl}" target="_blank" rel="noopener noreferrer">
       <div class="thumb">
         ${thumb}
-        ${g.clipCount ? `<div class="thumb-badge">${g.clipCount} clips</div>` : ""}
+        ${d.fileType ? `<div class="thumb-badge">${d.fileType}</div>` : ""}
       </div>
       <div class="card-body">
-        <div class="matchup">${g.title}</div>
+        <div class="matchup">${d.title}</div>
         <div class="card-meta">${metaHtml}</div>
         ${tagsHtml}
       </div>
@@ -48,11 +48,10 @@ function render(list) {
 function applyFilters() {
   const q = searchInput.value.toLowerCase();
   render(
-    games.filter(
-      (g) =>
-        g.title.toLowerCase().includes(q) ||
-        (g.crew || "").toLowerCase().includes(q) ||
-        g.date.toLowerCase().includes(q)
+    docs.filter(
+      (d) =>
+        d.title.toLowerCase().includes(q) ||
+        d.date.toLowerCase().includes(q)
     )
   );
 }
@@ -67,11 +66,11 @@ searchInput.addEventListener("input", applyFilters);
 viewGridBtn.addEventListener("click", () => setView("grid"));
 viewListBtn.addEventListener("click", () => setView("list"));
 
-fetch("/data/games.json")
+fetch("/data/documents.json")
   .then((r) => r.json())
   .then((data) => {
-    games = data;
-    render(games);
+    docs = data;
+    render(docs);
   })
   .catch(() => {
     render([]);

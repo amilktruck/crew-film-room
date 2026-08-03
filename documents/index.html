@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Clips — Crew Film Room</title>
-  <meta name="description" content="Search reviewed game film for the crew." />
+  <title>Documents — Crew Film Room</title>
+  <meta name="description" content="Mechanics manuals, points of emphasis, and other crew references." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Geist:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -19,8 +19,8 @@
       </a>
       <nav class="site-nav">
         <a href="/">Home</a>
-        <a href="/clips/" aria-current="page">Clips</a>
-        <a href="/documents/">Documents</a>
+        <a href="/clips/">Clips</a>
+        <a href="/documents/" aria-current="page">Documents</a>
       </nav>
     </div>
   </header>
@@ -34,14 +34,14 @@
   <main class="clips-main">
     <div class="wrap">
       <div class="page-head">
-        <h1>Clips</h1>
-        <p>Reviewed game film, with the on-tape comments intact. Opens the original film file &mdash; controls, drawings, and all &mdash; in a new tab.</p>
+        <h1>Documents</h1>
+        <p>Mechanics manuals, points of emphasis, and other crew references. Opens the original file in a new tab.</p>
       </div>
 
       <div class="toolbar">
         <div class="search-field">
           <label for="search">Search</label>
-          <input class="search" id="search" placeholder="Search by team, crew, or date…" />
+          <input class="search" id="search" placeholder="Search by title…" />
         </div>
         <div class="view-toggle" role="group" aria-label="Layout">
           <span class="mono-label">View</span>
@@ -54,8 +54,8 @@
 
       <div id="grid" class="grid is-list"></div>
       <div id="emptyState" class="empty-state" style="display:none;">
-        <p>No clips published yet</p>
-        <p>Check back after the next film session &mdash; new games are added here as soon as they're uploaded.</p>
+        <p>No documents published yet</p>
+        <p>Check back soon &mdash; references are added here as soon as they're uploaded.</p>
       </div>
     </div>
   </main>
@@ -67,6 +67,6 @@
     </div>
   </footer>
 
-  <script src="/assets/clips.js"></script>
+  <script src="/assets/documents.js"></script>
 </body>
 </html>

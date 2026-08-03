@@ -231,7 +231,7 @@ main { flex: 1; }
   flex: none;
 }
 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.thumb .clipcount {
+.thumb .thumb-badge {
   position: absolute; right: 8px; bottom: 8px;
   font-family: "Geist Mono", monospace;
   background: rgba(20, 22, 26, 0.78); color: #fff;
