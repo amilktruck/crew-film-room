@@ -46,5 +46,35 @@
     "tags": [],
     "thumbnail": "https://i.ytimg.com/vi/2CWjfoghBjE/hqdefault.jpg",
     "filmUrl": "https://youtu.be/2CWjfoghBjE"
+  },
+  {
+    "slug": "gl-coordination-2025",
+    "title": "GL Coordination 2025",
+    "date": "2026-08-11",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 27,
+    "thumbnail": "https://film.crewfilmroom.com/gl-coordination-2025/z/7f1ea774-3db9-4dd5-9565-8d6ed1f9b63b_720_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/gl-coordination-2025/film/index.html"
+  },
+  {
+    "slug": "catch-recovery-no-catch-2025",
+    "title": "Catch / Recovery / No Catch 2025",
+    "date": "2026-08-11",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 29,
+    "thumbnail": "https://film.crewfilmroom.com/catch-recovery-no-catch-2025/z/76ba4a6f-9cf1-4486-9320-1afa061e3722_1080_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/catch-recovery-no-catch-2025/film/index.html"
+  },
+  {
+    "slug": "gl-el-2025",
+    "title": "GL-EL 2025",
+    "date": "2026-08-11",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 70,
+    "thumbnail": "https://film.crewfilmroom.com/gl-el-2025/z/7f1ea774-3db9-4dd5-9565-8d6ed1f9b63b_720_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/gl-el-2025/film/index.html"
   }
 ]
