@@ -64,7 +64,10 @@ data/documents.example.json  Reference copy of the documents schema — not load
    `data/documents.example.json`:
    - `slug` — a short kebab-case id, doesn't need to match the R2 key
    - `title` — display name, e.g. `"Deep 3 Base Mechanics"`
-   - `date` — `YYYY-MM-DD`
+   - `date` — `YYYY-MM-DD`, **the date it's added to the site** (today),
+     not a date implied by the source filename — most of these documents
+     are only ever named with a month/year, which isn't meaningful for
+     sorting "newest first"
    - `fileType` — e.g. `"PPTX"`, shown as a badge on the card
    - `fileSize` — e.g. `"2.0 MB"`; optional, shown next to the date
    - `tags` — optional, same as the games schema
