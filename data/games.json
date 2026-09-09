@@ -192,5 +192,25 @@
     "clipCount": 6,
     "thumbnail": "https://film.crewfilmroom.com/week-1-tt-clips-playlist-2-2026/z/Clip_52_1080_L.jpg",
     "filmUrl": "https://film.crewfilmroom.com/week-1-tt-clips-playlist-2-2026/film/index.html"
+  },
+  {
+    "slug": "mhsaa-week-2-tt-clips-2026",
+    "title": "MHSAA Week #2 TT Clips",
+    "date": "2026-09-09",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 33,
+    "thumbnail": "https://film.crewfilmroom.com/mhsaa-week-2-tt-clips-2026/z/Clip_111_1080_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/mhsaa-week-2-tt-clips-2026/film/index.html"
+  },
+  {
+    "slug": "koa-week-2-tt-clips-2026",
+    "title": "KOA Week #2 TT Clips",
+    "date": "2026-09-09",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 21,
+    "thumbnail": "https://film.crewfilmroom.com/koa-week-2-tt-clips-2026/z/Clip_57_1080_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/koa-week-2-tt-clips-2026/film/index.html"
   }
 ]
