@@ -436,5 +436,25 @@
     "clipCount": 27,
     "thumbnail": "https://film.crewfilmroom.com/week-7-tt-clips-4-2026/z/2ba687c6-bca0-4f17-991f-133d868048d2_1080_L.jpg",
     "filmUrl": "https://film.crewfilmroom.com/week-7-tt-clips-4-2026/film/index.html"
+  },
+  {
+    "slug": "week-8-tt-clips-1-2026",
+    "title": "Week 8 TT Clips #1",
+    "date": "2026-10-20",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 35,
+    "thumbnail": "https://film.crewfilmroom.com/week-8-tt-clips-1-2026/z/511194e2-f3d6-43df-9844-cab9f362b40b_1080_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/week-8-tt-clips-1-2026/film/index.html"
+  },
+  {
+    "slug": "week-8-tt-clips-2-2026",
+    "title": "Week 8 TT Clips #2",
+    "date": "2026-10-20",
+    "level": "High School",
+    "tags": [],
+    "clipCount": 4,
+    "thumbnail": "https://film.crewfilmroom.com/week-8-tt-clips-2-2026/z/Clip_23_1080_L.jpg",
+    "filmUrl": "https://film.crewfilmroom.com/week-8-tt-clips-2-2026/film/index.html"
   }
 ]
